@@ -1,21 +1,23 @@
 import "./App.css";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import React from "react";
+import Welcome from "./pages/welcome";
+import Budget from "./pages/budget";
 
 function App() {
   return (
     <BrowserRouter>
       <Header></Header>
-      <Switch>
+      <Routes>
         <Route path="/welcome">
           <Welcome></Welcome>
         </Route>
         <Route path="/budget">
           <Budget></Budget>
         </Route>
-      </Switch>
+      </Routes>
 
       <Footer></Footer>
     </BrowserRouter>
