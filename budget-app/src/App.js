@@ -8,7 +8,7 @@ import Budget from "./pages/budget";
 
 function App() {
   return (
-    <React.Fragment>
+    <div className="app__container">
       <BrowserRouter>
         <Header></Header>
         <Routes>
@@ -17,7 +17,7 @@ function App() {
         </Routes>
         <Footer></Footer>
       </BrowserRouter>
-    </React.Fragment>
+    </div>
   );
 }
 

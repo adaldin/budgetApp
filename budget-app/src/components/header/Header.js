@@ -5,7 +5,6 @@ import Col from "react-bootstrap/Col";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavLink from "react-bootstrap/NavLink";
-// import Stack from "react-bootstrap/Stack";
 
 function Header() {
   return (
