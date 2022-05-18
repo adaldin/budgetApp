@@ -1,12 +1,15 @@
 import React from "react";
+import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
 function Welcome() {
   return (
-    <React.Fragment>
-      <Container fluid>
+    <Container fluid className="mt-5 bg-secondary text-light p-5">
+      <Row>
         <h1>Welcome!</h1>
+      </Row>
+      <Row>
         <p>
           is simply dummy text of the printing and typesetting industry. Lorem
           Ipsum has been the industry's standard dummy text ever since the
@@ -15,10 +18,9 @@ function Welcome() {
           but also the leap into electronic typesetting, remaining essentially
           unchanged.{" "}
         </p>
-
-        <Button>Get your Budget</Button>
-      </Container>
-    </React.Fragment>
+      </Row>
+      <Button variant="outline-light">Get your Budget</Button>
+    </Container>
   );
 }
 export default Welcome;
