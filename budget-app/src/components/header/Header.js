@@ -16,11 +16,11 @@ function Header() {
           </Col>
           <Col sm={12} md={8}>
             <Nav className="justify-content-end">
-              <NavLink href="/">
-                <Link to="/">Home</Link>
+              <NavLink as={Link} to="/">
+                Home
               </NavLink>
-              <NavLink href="">
-                <Link to="/budget">Get Your Budget</Link>
+              <NavLink as={Link} to="/budget">
+                Get Your Budget
               </NavLink>
             </Nav>
           </Col>

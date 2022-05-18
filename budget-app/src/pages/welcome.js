@@ -3,6 +3,7 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
+import { Link } from "react-router-dom";
 
 function Welcome() {
   return (
@@ -24,7 +25,9 @@ function Welcome() {
           </p>
         </Col>
         <Col sm={12} md={6}>
-          <Button variant="outline-light">Get your Budget</Button>
+          <Link to="/budget">
+            <Button variant="outline-light">Get your Budget</Button>
+          </Link>
         </Col>
       </Row>
     </Container>
