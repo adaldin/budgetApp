@@ -8,19 +8,16 @@ import Budget from "./pages/budget";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header></Header>
-      <Routes>
-        <Route path="/welcome">
-          <Welcome></Welcome>
-        </Route>
-        <Route path="/budget">
-          <Budget></Budget>
-        </Route>
-      </Routes>
-
-      <Footer></Footer>
-    </BrowserRouter>
+    <React.Fragment>
+      <BrowserRouter>
+        <Header></Header>
+        <Routes>
+          <Route path="/" element={<Welcome />}></Route>
+          <Route path="/budget" element={<Budget />}></Route>
+        </Routes>
+        <Footer></Footer>
+      </BrowserRouter>
+    </React.Fragment>
   );
 }
 
