@@ -14,33 +14,38 @@ function BudgetForm() {
         </Row>
         <Row>
           <Form>
-            <Col sm={12}>
-              <input
-                type="checkbox"
-                id="web"
-                // checked={formData.}
-              />
-              <label htmlFor="web">Una web. Costo 500€</label>
-            </Col>
-            <Col sm={12}>
-              <input
-                type="checkbox"
-                id="seo"
-                // checked={formData}
-              />
-              <label htmlFor="seo">Seo. Costo 300€</label>
-            </Col>
-            <Col sm={12}>
-              <input
-                type="checkbox"
-                id="seo"
-                // checked={formData.}
-              />
-              <label htmlFor="seo">GoogleAds. Costo 200€</label>
-            </Col>
-            <Col sm={12} md={6}>
-              <Button variant="outline-light">Get your Budget</Button>
-            </Col>
+            <Row className="g-3">
+              <Col sm={12}>
+                <input
+                  type="checkbox"
+                  id="web"
+                  // checked={formData.}
+                />
+                <label htmlFor="web">Una web. Costo 500€</label>
+              </Col>
+              <Col sm={12}>
+                <input
+                  type="checkbox"
+                  id="seo"
+                  // checked={formData}
+                />
+                <label htmlFor="seo">Seo. Costo 300€</label>
+              </Col>
+              <Col sm={12}>
+                <input
+                  type="checkbox"
+                  id="seo"
+                  // checked={formData.}
+                />
+                <label htmlFor="seo">GoogleAds. Costo 200€</label>
+              </Col>
+              <Col sm={12}>
+                <h6>Total:</h6>
+              </Col>
+              <Col sm={12}>
+                <Button variant="outline-light">Pide tu presupuesto</Button>
+              </Col>
+            </Row>
           </Form>
         </Row>
       </Container>

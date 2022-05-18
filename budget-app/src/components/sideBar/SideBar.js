@@ -9,15 +9,18 @@ function SideBar() {
       <Row className="my-2">
         <label htmlFor="searcherBar"></label>
         <input
+          className="rounded"
           type="text"
           id="searcherBar"
           placeholder="Busca tus presupuestos"
           // checked={formData.}
         />
       </Row>
-      <Row className="my-2 d-flex w-100 g-2">
+      <Row className="my-2 d-flex g-2">
         <Col sm={12} md={4}>
-          <Button variant="outline-light">A-Z</Button>
+          <Button variant="outline-light" className="px-4">
+            A-Z
+          </Button>
         </Col>
         <Col sm={12} md={4}>
           <Button variant="outline-light">11/2022</Button>
