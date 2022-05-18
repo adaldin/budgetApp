@@ -16,17 +16,21 @@ function SideBar() {
           // checked={formData.}
         />
       </Row>
-      <Row className="my-2 d-flex g-2">
+      <Row className="my-2 d-flex g-2 justify-content-between">
         <Col sm={12} md={4}>
-          <Button variant="outline-light" className="px-4">
+          <Button variant="outline-light" className="px-4 w-100 text-wrap">
             A-Z
           </Button>
         </Col>
-        <Col sm={12} md={4}>
-          <Button variant="outline-light">11/2022</Button>
+        <Col sm={12} md={4} className="d-flex justify-content-center">
+          <Button variant="outline-light" className="w-100 text-wrap">
+            11/2022
+          </Button>
         </Col>
         <Col sm={12} md={4}>
-          <Button variant="outline-light">RESTART</Button>
+          <Button variant="outline-light" className="w-100 text-wrap">
+            RESTART
+          </Button>
         </Col>
       </Row>
       <Row className="my-2">

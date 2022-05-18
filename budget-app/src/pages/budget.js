@@ -9,10 +9,10 @@ function Budget() {
   return (
     <Container fluid className="mt-5 bg-secondary text-light p-5">
       <Row>
-        <Col sm={12} md={8}>
+        <Col sm={12} md={7}>
           <BudgetForm></BudgetForm>
         </Col>
-        <Col sm={12} md={4}>
+        <Col sm={12} md={5}>
           <SideBar></SideBar>
         </Col>
       </Row>
