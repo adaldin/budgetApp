@@ -26,55 +26,53 @@ function BudgetForm() {
   }
 
   return (
-    <React.Fragment>
-      <Container fluid>
-        <Row className="text-center text-md-start">
-          <h3>¿Que necesitas?</h3>
-        </Row>
-        <Row>
-          <Form>
-            <Row className="g-3 text-center text-md-start">
-              <Col sm={12}>
-                <input
-                  type="checkbox"
-                  id="web"
-                  onChange={handleChange}
-                  name="web"
-                  checked={formData.web}
-                />
-                <label htmlFor="web">Una web. Costo 500€</label>
-              </Col>
-              <Col sm={12}>
-                <input
-                  type="checkbox"
-                  id="seo"
-                  onChange={handleChange}
-                  name="seo"
-                  checked={formData.seo}
-                />
-                <label htmlFor="seo">Seo. Costo 300€</label>
-              </Col>
-              <Col sm={12}>
-                <input
-                  type="checkbox"
-                  id="ads"
-                  onChange={handleChange}
-                  name="ads"
-                  checked={formData.ads}
-                />
-                <label htmlFor="ads">GoogleAds. Costo 200€</label>
-              </Col>
-              <Col sm={12}>
-                <h6>Total:</h6>
-              </Col>
-              <Col sm={12}>
-                <Button variant="outline-light">Pide tu presupuesto</Button>
-              </Col>
-            </Row>
-          </Form>
-        </Row>
-      </Container>
-    </React.Fragment>
+    <Container fluid>
+      <Row className="text-center text-md-start">
+        <h3>¿Que necesitas?</h3>
+      </Row>
+      <Row>
+        <Form>
+          <Row className="g-3 text-center text-md-start">
+            <Col sm={12}>
+              <input
+                type="checkbox"
+                id="web"
+                name="web"
+                checked={formData.web}
+                onChange={handleChange}
+              />
+              <label htmlFor="web">Una web. Costo 500€</label>
+            </Col>
+            <Col sm={12}>
+              <input
+                type="checkbox"
+                id="seo"
+                name="seo"
+                checked={formData.seo}
+                onChange={handleChange}
+              />
+              <label htmlFor="seo">Seo. Costo 300€</label>
+            </Col>
+            <Col sm={12}>
+              <input
+                type="checkbox"
+                id="ads"
+                name="ads"
+                checked={formData.ads}
+                onChange={handleChange}
+              />
+              <label htmlFor="ads">GoogleAds. Costo 200€</label>
+            </Col>
+            <Col sm={12}>
+              <h6>Total:</h6>
+            </Col>
+            <Col sm={12}>
+              <Button variant="outline-light">Pide tu presupuesto</Button>
+            </Col>
+          </Row>
+        </Form>
+      </Row>
+    </Container>
   );
 }
 export default BudgetForm;
