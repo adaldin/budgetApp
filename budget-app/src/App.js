@@ -1,23 +1,48 @@
+import { useState, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
-import React from "react";
-import Welcome from "./pages/welcome";
-import Budget from "./pages/budget";
 
 function App() {
+  const [budget, setBudget] = useState({
+    web: false,
+    seo: false,
+    ads: false,
+    pages: 1,
+    languages: 1,
+  });
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    updateTotal();
+  }, [budget]);
+
+  function updateBudget(e) {
+    const { name, value, checked, type } = e.target;
+    let newBudget = { ...budget };
+    newBudget[name] = type === "checkbox" ? checked : parseInt(value);
+    setBudget(newBudget);
+    console.log(budget);
+  }
+
+  function updateTotal() {
+    let newTotal = budget.pages * 30;
+    setTotal(newTotal);
+  }
+
   return (
-    <div className="app__container">
-      <BrowserRouter>
-        <Header></Header>
-        <Routes>
-          <Route path="/" element={<Welcome />}></Route>
-          <Route path="/budget" element={<Budget />}></Route>
-        </Routes>
-        <Footer></Footer>
-      </BrowserRouter>
-    </div>
+    <>
+      <form>
+        <input
+          type="checkbox"
+          name="web"
+          checked={budget.web}
+          onChange={updateBudget}
+        />
+        <label>Costo por web: 500€</label>
+        <div>
+          <h5>Total: {total}€</h5>
+        </div>
+      </form>
+    </>
   );
 }
 
