@@ -28,26 +28,17 @@ function App() {
 
   function updateTotal(event) {
     // event.preventDefault();
-    let newTotal;
+    let newTotal = 0;
     const { web, seo, ads, pages, languages } = budget;
-
-    if (pages > 1 || languages > 1) {
-      newTotal = parseInt(pages || languages) * 30;
-    }
-
-    if (web || seo || ads) {
-      newTotal = 0;
+    for (const key in budget) {
+      if (typeof budget[key] === "boolean" && budget[key]) {
+        newTotal = newTotal + pricing[key];
+      } else if (typeof budget[key] === "number" && budget[key] > 1) {
+        newTotal = newTotal + (budget[key] - 1) * pricing[key];
+      }
     }
 
     setTotal(newTotal);
-    // for (const key in budget) {
-    //   if (budget[key]) {
-    //     const product = productData.find((item) => {
-    //       if (item.tag === key) {
-    //         newTotal = newTotal + item.price;
-    //       }
-    //     });
-    //     console.log(newTotal);
   }
 
   return (
