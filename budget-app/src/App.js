@@ -14,22 +14,23 @@ function App() {
 
   useEffect(() => {
     updateTotal();
-  }, [budget]);
+  }, [budget]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  function updateBudget(e) {
-    let { name, value, checked, type } = e.target;
+  function updateBudget(event) {
+    event.preventDefault();
+    let { name, value, checked, type } = event.target;
     let newBudget = { ...budget };
     if (value === "") {
       value = 0;
     }
-    newBudget[name] = type === "checkbox" ? checked : parseInt(value);
+
+    if (type === "submit" || type === "text" || type === "checkbox")
+      newBudget[name] = type === "checkbox" ? checked : parseInt(value);
     setBudget(newBudget);
   }
 
   function updateTotal(event) {
-    // event.preventDefault();
     let newTotal = 0;
-    const { web, seo, ads, pages, languages } = budget;
     for (const key in budget) {
       if (typeof budget[key] === "boolean" && budget[key]) {
         newTotal = newTotal + pricing[key];
@@ -40,10 +41,35 @@ function App() {
 
     setTotal(newTotal);
   }
+  function handleClick(event) {
+    event.preventDefault();
+    const { name, value, id } = event.target;
+
+    if (id === "pagesAdd") {
+      setBudget((prevValue) => {
+        return { ...prevValue, [name]: parseInt(value) + 1 };
+      });
+    } else if (id === "pagesSubs") {
+      setBudget((prevValue) => {
+        return { ...prevValue, [name]: parseInt(value) - 1 };
+      });
+    } else if (id === "langAdd") {
+      setBudget((prevValue) => {
+        return { ...prevValue, [name]: parseInt(value) + 1 };
+      });
+    } else if (id === "langSubs") {
+      setBudget((prevValue) => {
+        return { ...prevValue, [name]: parseInt(value) - 1 };
+      });
+    }
+  }
 
   return (
     <>
-      <form onSubmit={updateTotal}>
+      <form>
+        <div>
+          <h4>¿Qué quieres realizar?</h4>
+        </div>
         <div>
           <input
             type="checkbox"
@@ -54,22 +80,56 @@ function App() {
           <label>Costo por web: 500€</label>
         </div>
         <div>
-          <label>Número de páginas</label>
+          <label htmlFor="pages">Número de páginas</label>
+          <button
+            onClick={handleClick}
+            name="pages"
+            id="pagesSubs"
+            value={budget.pages}
+          >
+            -
+          </button>
           <input
+            id="pages"
             type="text"
             name="pages"
             value={budget.pages}
             onChange={updateBudget}
           />
+          <button
+            onClick={handleClick}
+            name="pages"
+            id="pagesAdd"
+            value={budget.pages}
+          >
+            +
+          </button>
         </div>
         <div>
-          <label>Número de idiomas</label>
+          <label htmlFor="languages">Número de idiomas</label>
+          <button
+            onClick={handleClick}
+            name="languages"
+            id="langSubs"
+            value={budget.languages}
+          >
+            -
+          </button>
           <input
+            id="languages"
             type="text"
             name="languages"
             value={budget.languages}
             onChange={updateBudget}
           />
+          <button
+            onClick={handleClick}
+            name="languages"
+            id="langAdd"
+            value={budget.languages}
+          >
+            +
+          </button>
         </div>
 
         <div>
@@ -90,9 +150,8 @@ function App() {
           />
           <label>Costo por Google Ads: 200€</label>
         </div>
-
         <div>
-          <button type="submit">Quiero mi presupuesto</button>
+          <button onClick={updateTotal}>Quiero mi presupuesto</button>
         </div>
         <div>
           <h5>Total: {total}€</h5>
