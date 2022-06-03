@@ -8,13 +8,15 @@ import { nanoid } from "nanoid";
 
 function App() {
   // useStates
-  const [product, setProduct] = useState({
-    web: false,
-    seo: false,
-    ads: false,
-    pages: 1,
-    languages: 1,
-  });
+  const [product, setProduct] = useState(
+    JSON.parse(localStorage.getItem("product")) || {
+      web: false,
+      seo: false,
+      ads: false,
+      pages: 1,
+      languages: 1,
+    }
+  );
   const [total, setTotal] = useState(0);
 
   const [budget, setBudget] = useState(
@@ -25,6 +27,10 @@ function App() {
   useEffect(() => {
     updateTotal();
   }, [product]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    localStorage.setItem("product", JSON.stringify(product));
+  }, [product]);
 
   useEffect(() => {
     localStorage.setItem("budget", JSON.stringify(budget));
