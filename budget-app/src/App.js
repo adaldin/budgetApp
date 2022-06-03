@@ -7,6 +7,7 @@ import { nanoid } from "nanoid";
 // import Header from "./components/Header";
 
 function App() {
+  // useStates
   const [product, setProduct] = useState({
     web: false,
     seo: false,
@@ -16,12 +17,20 @@ function App() {
   });
   const [total, setTotal] = useState(0);
 
-  const [budget, setBudget] = useState([]);
+  const [budget, setBudget] = useState(
+    JSON.parse(localStorage.getItem("budget")) || []
+  );
 
+  // useEffect
   useEffect(() => {
     updateTotal();
   }, [product]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    localStorage.setItem("budget", JSON.stringify(budget));
+  }, [budget]);
+
+  // lógica
   function updateBudget(event) {
     event.preventDefault();
     let { name, value, checked, type } = event.target;
@@ -82,14 +91,17 @@ function App() {
           id: nanoid(),
           date: newDate,
           details: product,
+          total: total,
         };
       }
     }
     if (newBudget.id !== undefined) {
       setBudget((prevBudget) => [newBudget, ...prevBudget]);
     }
-    // setCurrentBudgetId(newNote.id);
+    // setCurrentBudgetId(newBudget.id);
   }
+
+  // localStorage.clear()
 
   return (
     <form>
