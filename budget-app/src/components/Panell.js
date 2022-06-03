@@ -18,6 +18,7 @@ const Panell = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  flex-wrap: wrap;
   opacity: 0.8;
   animation: ${fadeIn} 0.5s ease-in;
   gap: 0.5rem;
