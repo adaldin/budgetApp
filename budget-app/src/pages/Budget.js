@@ -80,11 +80,11 @@ function Budget() {
       setProduct((prevValue) => {
         return { ...prevValue, [name]: parseInt(value) - 1 };
       });
-    } else if (id === "langAdd") {
+    } else if (id === "languagesAdd") {
       setProduct((prevValue) => {
         return { ...prevValue, [name]: parseInt(value) + 1 };
       });
-    } else if (id === "langSubs") {
+    } else if (id === "languagesSubs") {
       setProduct((prevValue) => {
         return { ...prevValue, [name]: parseInt(value) - 1 };
       });
@@ -137,13 +137,13 @@ function Budget() {
                 handleClick={handleClick}
                 updateBudget={updateBudget}
                 value={product.pages}
-                name="páginas"
+                name="pages"
               />
               <WebOptions
                 handleClick={handleClick}
                 updateBudget={updateBudget}
                 value={product.languages}
-                name="idiomas"
+                name="languages"
               />
             </Panell>
           ) : (

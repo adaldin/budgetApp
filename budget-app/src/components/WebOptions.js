@@ -9,29 +9,31 @@ function WebOptions(props) {
     <Container>
       <Row>
         <Col sm={12}>
-          <label htmlFor="pages">Número de {props.name}</label>
+          <label htmlFor="pages">
+            {props.name === "pages" ? "Número de páginas" : "Número de idiomas"}
+          </label>
         </Col>
         <Col sm={12} className="counter__container">
           <Button
             onClick={props.handleClick}
-            name="pages"
-            id="pagesSubs"
+            name={props.name}
+            id={props.name + "Subs"}
             value={props.value}
           >
             -
           </Button>
           <input
-            id="pages"
+            id={props.name}
             type="text"
-            name="pages"
+            name={props.name}
             value={props.value}
             onChange={props.updateBudget}
             min={1}
           />
           <Button
             onClick={props.handleClick}
-            name="pages"
-            id="pagesAdd"
+            name={props.name}
+            id={props.name + "Add"}
             value={props.value}
           >
             +
