@@ -8,6 +8,7 @@ import { nanoid } from "nanoid";
 import Panell from "../components/Panell";
 import WebOptions from "../components/WebOptions";
 import { Form } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 // import BudgetForm from "../components/budgetForm/BudgetForm";
 // import SideBar from "../components/sideBar/SideBar";
 
@@ -169,7 +170,9 @@ function Budget() {
             <label>Costo por Google Ads: 200€</label>
           </div>
           <div>
-            <button onClick={createNewBudget}>Quiero mi presupuesto</button>
+            <Button variant="outline-light" onClick={createNewBudget}>
+              Quiero mi presupuesto
+            </Button>
           </div>
           <div>
             <h5>Total: {total}€</h5>
