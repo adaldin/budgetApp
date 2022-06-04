@@ -9,8 +9,9 @@ import Panell from "../components/Panell";
 import WebOptions from "../components/WebOptions";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-// import BudgetForm from "../components/budgetForm/BudgetForm";
-// import SideBar from "../components/sideBar/SideBar";
+import InputGroup from "react-bootstrap/InputGroup";
+import FormControl from "react-bootstrap/FormControl";
+import SideBar from "../components/SideBar";
 
 function Budget() {
   // useStates
@@ -51,9 +52,10 @@ function Budget() {
       value = 0;
     }
 
-    if (type === "submit" || type === "text" || type === "checkbox")
-      newBudget[name] = type === "checkbox" ? checked : parseInt(value);
-    setProduct(newBudget);
+    if (type === "submit" || type === "text" || type === "checkbox") {
+      newBudget[name] = type === "checkbox" ? checked : value;
+      setProduct(newBudget);
+    }
   }
 
   function updateTotal() {
@@ -117,20 +119,24 @@ function Budget() {
 
   return (
     <Container fluid className="mt-5 bg-secondary text-light p-5">
-      <Row>
-        <Form as={Col} sm={12} md={7}>
+      <Row className="align-items-center">
+        <SideBar />
+      </Row>
+      <Row as={Form}>
+        <Col sm={12} md={7}>
           <div>
             <h4>¿Qué quieres realizar?</h4>
           </div>
-          <div>
-            <input
+          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            <Form.Check
+              required
               type="checkbox"
+              label="Costo por web: 500€"
               name="web"
               checked={product.web}
               onChange={updateBudget}
             />
-            <label>Costo por web: 500€</label>
-          </div>
+          </Form.Group>
 
           {product.web ? (
             <Panell>
@@ -150,37 +156,67 @@ function Budget() {
           ) : (
             " "
           )}
-
-          <div>
-            <input
+          <Form.Group className="mb-3" controlId="seoCheckbox">
+            <Form.Check
+              required
               type="checkbox"
+              label="Costo por seo: 300€"
               name="seo"
               checked={product.seo}
               onChange={updateBudget}
             />
-            <label>Costo por seo: 300€</label>
-          </div>
-          <div>
-            <input
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="adsCheckbox">
+            <Form.Check
+              required
               type="checkbox"
+              label="Costo por Google Ads: 200€"
               name="ads"
               checked={product.ads}
               onChange={updateBudget}
             />
-            <label>Costo por Google Ads: 200€</label>
-          </div>
-          <div>
-            <Button variant="outline-light" onClick={createNewBudget}>
-              Quiero mi presupuesto
-            </Button>
-          </div>
-          <div>
-            <h5>Total: {total}€</h5>
-          </div>
-        </Form>
-        <Col sm={12} md={5}>
-          <p> SideBar</p>
+          </Form.Group>
+          <Col sm={12} md={6}>
+            <InputGroup className="mb-3 d-flex">
+              <FormControl
+                onChange={updateBudget}
+                required
+                name="budgetName"
+                placeholder="Nombre del presupuesto"
+                aria-label="Nombre del presupuesto"
+                aria-describedby="basic-addon2"
+              />
+              <InputGroup.Text id="basic-addon2">Web Personal</InputGroup.Text>
+            </InputGroup>
+            <Form.Text className="text-white">
+              No compartiremos estos datos con nadie.
+            </Form.Text>
+          </Col>
+          <Col sm={12} md={6}>
+            <InputGroup className="mb-3 d-flex">
+              <FormControl
+                onChange={updateBudget}
+                required
+                name="clientName"
+                placeholder="Nombre del cliente"
+                aria-label="Nombre del cliente"
+                aria-describedby="basic-addon3"
+              />
+              <InputGroup.Text id="basic-addon3">Carles Pagés</InputGroup.Text>
+            </InputGroup>
+            <Form.Text className="text-white">
+              No compartiremos estos datos con nadie.
+            </Form.Text>
+          </Col>
         </Col>
+        <div>
+          <Button variant="outline-light" onClick={createNewBudget}>
+            Quiero mi presupuesto
+          </Button>
+        </div>
+        <div>
+          <h5>Total: {total}€</h5>
+        </div>
       </Row>
     </Container>
   );
