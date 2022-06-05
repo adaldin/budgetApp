@@ -30,6 +30,10 @@ function Budget() {
     JSON.parse(localStorage.getItem("budget")) || []
   );
 
+  const [filtered, setFiltered] = useState({
+    budgetList: budget,
+  });
+
   // useEffect
   useEffect(() => {
     updateTotal();
@@ -117,11 +121,31 @@ function Budget() {
 
   // localStorage.clear()
 
+  function handleFilter(event) {
+    const { name, id, type, value } = event.target;
+    if (budget.length > 0 && type === "text") {
+      let result = filterBudgets(value);
+      console.log("resultado " + result, "filtered: " + filtered.budgetList);
+    } else {
+      console.log("no budget yet");
+    }
+  }
+  function normalizeSearch(budgetsName) {
+    return budgetsName
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+  function filterBudgets(currentValue) {
+    const filteredBudgets = budget.filter((b) => {
+      return normalizeSearch(b.details.budgetName).includes(currentValue);
+    });
+    setFiltered(filteredBudgets);
+  }
+
   return (
     <Container fluid className="mt-5 bg-secondary text-light p-5">
-      <Row className="align-items-center">
-        <SideBar />
-      </Row>
+      <SideBar budgets={budget} handleFilter={handleFilter} />
       <Row as={Form}>
         <Col sm={12} md={7}>
           <div>
