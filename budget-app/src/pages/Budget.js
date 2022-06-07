@@ -13,6 +13,13 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import SideBar from "../components/SideBar";
 
+// Para terminar
+// setCurrentBudgetId(newBudget.id);
+// localStorage.clear()
+//validar dubmit con form bootstrap (al menos un checkbox e inputs llenos)
+//si web unchecked, total must be clear (sin 30€ o +)
+//ui state para edit y create
+
 function Budget() {
   // useStates
   const [product, setProduct] = useState(
@@ -46,6 +53,12 @@ function Budget() {
   useEffect(() => {
     localStorage.setItem("budget", JSON.stringify(budget));
   }, [budget]);
+
+  //   useEffect(() => {
+  //     setFiltered((prevFilter) => {
+  //       return prevFilter.budgetList === budget;
+  //     });
+  //   }, [budget]);
 
   // lógica
   function updateBudget(event) {
@@ -100,7 +113,7 @@ function Budget() {
 
   function createNewBudget(event) {
     event.preventDefault();
-    let newDate = new Date().toDateString();
+    let newDate = new Date();
     let newBudget = {};
 
     for (const key in product) {
@@ -119,28 +132,47 @@ function Budget() {
     // setCurrentBudgetId(newBudget.id);
   }
 
-  // localStorage.clear()
-
   function handleFilter(event) {
-    const { name, id, type, value } = event.target;
+    const { name, type, value } = event.target;
     if (budget.length > 0 && type === "text") {
-      let result = filterBudgets(value);
-      console.log("resultado " + result, "filtered: " + filtered.budgetList);
+      filterBudgets(value);
+      console.log(filtered);
+    } else if (budget.length > 0 && type === "button") {
+      switch (name) {
+        case "alpha":
+          let result = budget.sort((a, b) =>
+            a.details.budgetName.localeCompare(b.details.budgetName)
+          );
+          console.log(result);
+          break;
+        case "date":
+          let date = budget.sort((a, b) => a.date - b.date);
+          console.log(date);
+          break;
+        default:
+          console.log(`No se ha seleccionado ninguna opción válida.`);
+        //   case "restart":
+        //     let reset =  aquí reseteará filtered list
+        //     console.log(date);
+        //     break;
+      }
     } else {
       console.log("no budget yet");
     }
   }
+
   function normalizeSearch(budgetsName) {
     return budgetsName
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
   }
+
   function filterBudgets(currentValue) {
-    const filteredBudgets = budget.filter((b) => {
+    const filtered = budget.filter((b) => {
       return normalizeSearch(b.details.budgetName).includes(currentValue);
     });
-    setFiltered(filteredBudgets);
+    setFiltered(filtered);
   }
 
   return (
@@ -210,7 +242,7 @@ function Budget() {
                 aria-label="Nombre del presupuesto"
                 aria-describedby="basic-addon2"
               />
-              <InputGroup.Text id="basic-addon2">Web Personal</InputGroup.Text>
+              <InputGroup.Text id="basic-addon2">Portfolio</InputGroup.Text>
             </InputGroup>
             <Form.Text className="text-white">
               No compartiremos estos datos con nadie.
