@@ -9,7 +9,7 @@ const fadeIn = keyframes`
 }`;
 
 const Panell = styled.div`
-  width: min-content;
+  width: 100%;
   border: 1px solid;
   border-radius: 0.5rem;
   padding: 1rem;

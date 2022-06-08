@@ -14,6 +14,7 @@ function App() {
     <BrowserRouter>
       <Header></Header>
       <Routes>
+        {/* <Route path="/budget/:id" element={<Budget />}></Route> */}
         <Route path="/" element={<Welcome />}></Route>
         <Route path="/budget" element={<Budget />}></Route>
       </Routes>

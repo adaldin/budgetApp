@@ -1,4 +1,3 @@
-// import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -37,8 +36,8 @@ function SideBar(props) {
             <Button name="date" onClick={props.handleFilter}>
               01-11
             </Button>
-            <Button name="restart" onClick={props.handleFilter}>
-              Restart
+            <Button name="reset" onClick={props.handleFilter} type="reset">
+              Reset
             </Button>
           </Stack>
         </Col>
