@@ -3,34 +3,19 @@ import BudgetCard from "./BudgetCard";
 import { Card } from "react-bootstrap";
 import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
-function BudgetList(props) {
-  // function getProducts(arr) {
-  //   let productKeyValue = [];
-  //   for (let key in arr) {
-  //     if (typeof arr[key] === "boolean") {
-  //       productKeyValue = [key, arr[key] ? "X" : "-"];
-  //     } else if (typeof arr === "number") {
-  //       productKeyValue.push({
-  //         productKey: key,
-  //         productValue: arr[key] ? "x" : "-",
-  //       });
-  //     }
-  //     return productKeyValue;
-  //   }
-  // }
 
-  const cards = props.filteredBudgets.map((i) => (
-    <BudgetCard
-      key={i.id}
-      budgetName={i.details.budgetName}
-      clientName={i.details.clientName}
-      // products={Object.entries(props.filteredBudgets).map(([key, value]) => {
-      //   return value;
-      // })}
-      // products={i.details}
-      total={i.total}
-    ></BudgetCard>
-  ));
+function BudgetList(props) {
+  const cards = props.filteredBudgets.map((i) => {
+    return (
+      <BudgetCard
+        key={i.id}
+        budgetName={i.details.budgetName}
+        clientName={i.details.clientName}
+        products={i.details}
+        total={i.total}
+      ></BudgetCard>
+    );
+  });
 
   return (
     <Col sm={12}>

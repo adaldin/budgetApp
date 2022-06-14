@@ -1,11 +1,8 @@
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Badge from "react-bootstrap/Badge";
-import Button from "react-bootstrap/Button";
-// import Accordion from "react-bootstrap/Accordion";
-function BudgetCard(props) {
-  //   console.log(props.products);
 
+function BudgetCard(props) {
   function handleEdit(event) {
     event.preventDefault();
     let myData = localStorage.getItem("budget");
@@ -15,17 +12,6 @@ function BudgetCard(props) {
   function handleDelete(event) {
     event.preventDefault();
   }
-  //   console.log(props.products.map((e) => e));
-  //   console.log(props.products);
-  //   let selectedProducts;
-  //   Object.values(props.products).some((key) => {
-  //     if (typeof key === "boolean" && key) {
-  //       selectedProducts = key;
-  //     }
-  //     return selectedProducts;
-  //   });
-  //   console.log(selectedProducts);
-
   return (
     <Card className="bg-dark my-2">
       <Card.Header className="d-flex justify-content-between">
@@ -49,25 +35,11 @@ function BudgetCard(props) {
             <div className="ms-2 me-auto">
               <div className="fw-bold">Productos</div>
               <ul>
-                <li>{props.products}</li>
+                <li>{Object.keys(props.products)}</li>
               </ul>
             </div>
             <Badge bg="primary" pill>
-              nº
-            </Badge>
-          </ListGroup.Item>
-          <ListGroup.Item
-            as="li"
-            className="d-flex justify-content-between align-items-start"
-          >
-            <div className="ms-2 me-auto">
-              <div className="fw-bold">Subproductos</div>
-              <ul>
-                <li>aquí map Subproductos</li>
-              </ul>
-            </div>
-            <Badge bg="primary" pill>
-              nº
+              {props.length}
             </Badge>
           </ListGroup.Item>
         </ListGroup>

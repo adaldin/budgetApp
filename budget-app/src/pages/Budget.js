@@ -8,32 +8,22 @@ import { nanoid } from "nanoid";
 import Panell from "../components/Panell";
 import WebOptions from "../components/WebOptions";
 import { Form } from "react-bootstrap";
-
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import SideBar from "../components/SideBar";
 import BudgetList from "../components/BudgetList";
-import { useLocation } from "react-router-dom";
 
-// Para terminar
+// RoadMap
 
-// setCurrentBudgetId(newBudget.id);
-// localStorage.clear()
-//validar submit con form bootstrap (al menos un checkbox e inputs llenos) (Formik???)
-//si web unchecked, total must be clear (sin 30€ o +)
+//Filtered list html correction (working on console.log)
+//generate curentBudgetID() to edit onClick
 //ui state para edit y create
 //button checkout en detail para sacar todo a carrito
 //use params
-// Restart button clear list (no local storage)
-//date cuando la dibuje: To string date().
-// list presus: descargar pluging pdf
-//filter list estado
-//filter barra
-//maquetación
-//card con datos correctos (map sobre objetos)
+//Maquetación
+//functions BudgetCard handleEdit / handle Delete
 
 function Budget() {
-  // useStates
   const [product, setProduct] = useState(
     JSON.parse(localStorage.getItem("product")) || {
       web: false,
@@ -54,6 +44,8 @@ function Budget() {
 
   const [filtered, setFiltered] = useState([...budget]);
 
+  const [required, setRequired] = useState(true);
+
   // useEffect
   useEffect(() => {
     updateTotal();
@@ -67,22 +59,15 @@ function Budget() {
     localStorage.setItem("budget", JSON.stringify(budget));
   }, [budget]);
 
-  useEffect(() => {
-    localStorage.setItem("filtered", JSON.stringify(filtered));
-  }, [filtered]);
-
-  // useLocation
-  const location = useLocation();
-  useEffect(() => {
-    updateUrl(location);
-  }, [product]); // eslint-disable-line react-hooks/exhaustive-deps
-
   // lógica
   function updateBudget(event) {
     event.preventDefault(event);
     let { name, value, checked, type } = event.target;
-
     let newBudget = { ...product };
+
+    if (!checked) {
+      newBudget[name] = value > 1 ? 1 : 1;
+    }
     if (value === "") {
       value = 0;
     }
@@ -91,19 +76,29 @@ function Budget() {
       newBudget[name] = type === "checkbox" ? checked : normalizeSearch(value);
       setProduct(newBudget);
     }
+    validateFields(event);
+  }
+
+  function validateFields() {
+    let anyCheck = Object.values(product).some((item) => item === true);
+
+    if (anyCheck) {
+      setRequired((prevRequired) => !prevRequired);
+    }
   }
 
   function updateTotal() {
     let newTotal = 0;
+
     for (const key in product) {
       if (typeof product[key] === "boolean" && product[key]) {
         newTotal = newTotal + pricing[key];
       } else if (typeof product[key] === "number" && product[key] > 1) {
         newTotal = newTotal + (product[key] - 1) * pricing[key];
       }
-    }
 
-    setTotal(newTotal);
+      setTotal(newTotal);
+    }
   }
 
   function handleClick(event) {
@@ -137,7 +132,6 @@ function Budget() {
       event.stopPropagation();
     } else {
       let newBudget = {};
-
       for (const key in product) {
         if (typeof product[key] === "boolean" && product[key]) {
           newBudget = {
@@ -152,33 +146,31 @@ function Budget() {
         setBudget((prevBudget) => [newBudget, ...prevBudget]);
       }
     }
-
     setValidated(true);
-    // setCurrentBudgetId(newBudget.id);
   }
 
   function handleFilter(event) {
     const { name, type, value } = event.target;
     let currentValue = normalizeSearch(value);
-    let findByName = [];
+    let findByInput = [];
+    let findByButton = [];
 
-    if (budget.length > 0 && type === "text") {
-      findByName = budget.filter((b) =>
+    if (filtered.length > 0 && type === "text") {
+      findByInput = filtered.filter((b) =>
         b.details.budgetName.includes(currentValue)
       );
-      setFiltered(findByName);
-    } else if ((budget.length > 0 && type === "button") || type === "reset") {
+      setFiltered(findByInput);
+    } else if ((filtered.length > 0 && type === "button") || type === "reset") {
       switch (name) {
         case "alpha":
-          let orderByAlphabet = budget.sort((a, b) =>
+          findByButton = filtered.sort((a, b) =>
             a.details.budgetName.localeCompare(b.details.budgetName)
           );
-          setFiltered(orderByAlphabet);
+          setFiltered(findByButton);
           break;
         case "date":
-          let orderByDate = budget.sort((a, b) => a.date.localeCompare(b.date));
-          setFiltered(orderByDate);
-
+          findByButton = filtered.sort((a, b) => a.date.localeCompare(b.date));
+          setFiltered(findByButton);
           break;
         case "reset":
           setFiltered(budget);
@@ -189,7 +181,7 @@ function Budget() {
           console.log(`No se ha seleccionado ninguna opción válida.`);
       }
     }
-    console.log(filtered);
+    console.log("filtrado en budget", filtered);
   }
 
   function normalizeSearch(budgetSearched) {
@@ -197,10 +189,6 @@ function Budget() {
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
-  }
-
-  function updateUrl(location) {
-    location.search = product;
   }
 
   return (
@@ -221,12 +209,14 @@ function Budget() {
             </div>
             <Form.Group className="mb-3" controlId="webCheckbox">
               <Form.Check
-                //   required
+                required={required}
                 type="checkbox"
                 label="Costo por web: 500€"
                 name="web"
                 checked={product.web}
                 onChange={updateBudget}
+                feedback="Debes seleccionar al menos un producto"
+                feedbackType="invalid"
               />
             </Form.Group>
 
@@ -250,22 +240,29 @@ function Budget() {
             )}
             <Form.Group className="mb-3" controlId="seoCheckbox">
               <Form.Check
-                //   required
+                required={required}
                 type="checkbox"
                 label="Costo por seo: 300€"
                 name="seo"
                 checked={product.seo}
                 onChange={updateBudget}
+                feedback="Debes seleccionar al menos un producto"
+                feedbackType="invalid"
               />
+              <Form.Control.Feedback type="invalid">
+                Por favor, selecciona al menos un producto
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="adsCheckbox">
               <Form.Check
-                //   required
+                required={required}
                 type="checkbox"
                 label="Costo por Google Ads: 200€"
                 name="ads"
                 checked={product.ads}
                 onChange={updateBudget}
+                feedback="Debes seleccionar al menos un producto"
+                feedbackType="invalid"
               />
             </Form.Group>
             <Col sm={12}>
