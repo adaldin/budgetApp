@@ -15,6 +15,7 @@ import BudgetList from "../components/BudgetList";
 
 // RoadMap
 
+// Clean code (order setters, and pass them to components to avoid more functions)
 //Filtered list html correction (working on console.log)
 //generate curentBudgetID() to edit onClick
 //ui state para edit y create
